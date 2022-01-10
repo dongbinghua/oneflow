@@ -72,13 +72,14 @@ void InitEagerNcclOpKernelCache(user_op::KernelCacheContext* ctx,
 }
 }  // namespace
 
-class EagerNcclAllReduceKernel final : public user_op::OpKernel {
+class EagerNcclAllReduceKernel final : public user_op::OpKernel,
+                                       public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerNcclAllReduceKernel() = default;
   ~EagerNcclAllReduceKernel() override = default;
 
  private:
-  using user_op::OpKernel::InitOpKernelCache;
+  using user_op::OpKernelStateAndCacheProvider::InitOpKernelCache;
   void InitOpKernelCache(user_op::KernelCacheContext* ctx, int8_t flag,
                          std::shared_ptr<user_op::OpKernelCache>* cache_ptr) const override {
     InitEagerNcclOpKernelCache(ctx, cache_ptr);
@@ -104,13 +105,14 @@ REGISTER_USER_KERNEL("eager_nccl_all_reduce")
     .SetCreateFn<EagerNcclAllReduceKernel>()
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCUDA);
 
-class EagerNcclBroadcastKernel final : public user_op::OpKernel {
+class EagerNcclBroadcastKernel final : public user_op::OpKernel,
+                                       public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerNcclBroadcastKernel() = default;
   ~EagerNcclBroadcastKernel() override = default;
 
  private:
-  using user_op::OpKernel::InitOpKernelCache;
+  using user_op::OpKernelStateAndCacheProvider::InitOpKernelCache;
   void InitOpKernelCache(user_op::KernelCacheContext* ctx, int8_t flag,
                          std::shared_ptr<user_op::OpKernelCache>* cache_ptr) const override {
     InitEagerNcclOpKernelCache(ctx, cache_ptr);
@@ -161,13 +163,14 @@ REGISTER_USER_KERNEL("eager_nccl_touch")
     .SetCreateFn<EagerNcclTouchKernel>()
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCUDA);
 
-class EagerNcclReduceKernel final : public user_op::OpKernel {
+class EagerNcclReduceKernel final : public user_op::OpKernel,
+                                    public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerNcclReduceKernel() = default;
   ~EagerNcclReduceKernel() override = default;
 
  private:
-  using user_op::OpKernel::InitOpKernelCache;
+  using user_op::OpKernelStateAndCacheProvider::InitOpKernelCache;
   void InitOpKernelCache(user_op::KernelCacheContext* ctx, int8_t flag,
                          std::shared_ptr<user_op::OpKernelCache>* cache_ptr) const override {
     InitEagerNcclOpKernelCache(ctx, cache_ptr);
@@ -198,13 +201,14 @@ REGISTER_USER_KERNEL("eager_nccl_reduce")
     .SetCreateFn<EagerNcclReduceKernel>()
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCUDA);
 
-class EagerNcclReduceScatterKernel final : public user_op::OpKernel {
+class EagerNcclReduceScatterKernel final : public user_op::OpKernel,
+                                           public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerNcclReduceScatterKernel() = default;
   ~EagerNcclReduceScatterKernel() override = default;
 
  private:
-  using user_op::OpKernel::InitOpKernelCache;
+  using user_op::OpKernelStateAndCacheProvider::InitOpKernelCache;
   void InitOpKernelCache(user_op::KernelCacheContext* ctx, int8_t flag,
                          std::shared_ptr<user_op::OpKernelCache>* cache_ptr) const override {
     InitEagerNcclOpKernelCache(ctx, cache_ptr);
@@ -236,13 +240,14 @@ REGISTER_USER_KERNEL("eager_nccl_reduce_scatter")
     .SetCreateFn<EagerNcclReduceScatterKernel>()
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCUDA);
 
-class EagerNcclAllGatherKernel final : public user_op::OpKernel {
+class EagerNcclAllGatherKernel final : public user_op::OpKernel,
+                                       public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerNcclAllGatherKernel() = default;
   ~EagerNcclAllGatherKernel() override = default;
 
  private:
-  using user_op::OpKernel::InitOpKernelCache;
+  using user_op::OpKernelStateAndCacheProvider::InitOpKernelCache;
   void InitOpKernelCache(user_op::KernelCacheContext* ctx, int8_t flag,
                          std::shared_ptr<user_op::OpKernelCache>* cache_ptr) const override {
     InitEagerNcclOpKernelCache(ctx, cache_ptr);
@@ -268,13 +273,14 @@ REGISTER_USER_KERNEL("eager_nccl_all_gather")
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCUDA);
 
 template<typename T>
-class EagerNcclS2SKernel final : public user_op::OpKernel {
+class EagerNcclS2SKernel final : public user_op::OpKernel,
+                                 public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerNcclS2SKernel() = default;
   ~EagerNcclS2SKernel() override = default;
 
  private:
-  using user_op::OpKernel::InitOpKernelCache;
+  using user_op::OpKernelStateAndCacheProvider::InitOpKernelCache;
   void InitOpKernelCache(user_op::KernelCacheContext* ctx, int8_t flag,
                          std::shared_ptr<user_op::OpKernelCache>* cache_ptr) const override {
     InitEagerNcclOpKernelCache(ctx, cache_ptr);

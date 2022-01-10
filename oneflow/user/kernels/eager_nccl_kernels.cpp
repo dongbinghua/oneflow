@@ -75,7 +75,8 @@ void InitEagerCclOpKernelCache(user_op::KernelCacheContext* ctx,
 }
 }  // namespace
 
-class EagerCclBroadcastKernel final : public user_op::OpKernel {
+class EagerCclBroadcastKernel final : public user_op::OpKernel,
+                                      public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerCclBroadcastKernel() = default;
   ~EagerCclBroadcastKernel() override = default;
@@ -127,7 +128,8 @@ REGISTER_USER_KERNEL("eager_nccl_touch")
     .SetCreateFn<EagerCclTouchKernel>()
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCPU);
 
-class EagerCclReduceKernel final : public user_op::OpKernel {
+class EagerCclReduceKernel final : public user_op::OpKernel,
+                                   public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerCclReduceKernel() = default;
   ~EagerCclReduceKernel() override = default;
@@ -163,7 +165,8 @@ REGISTER_USER_KERNEL("eager_nccl_reduce")
     .SetCreateFn<EagerCclReduceKernel>()
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCPU);
 
-class EagerCclAllReduceKernel final : public user_op::OpKernel {
+class EagerCclAllReduceKernel final : public user_op::OpKernel,
+                                      public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerCclAllReduceKernel() = default;
   ~EagerCclAllReduceKernel() override = default;
@@ -194,7 +197,8 @@ REGISTER_USER_KERNEL("eager_nccl_all_reduce")
     .SetCreateFn<EagerCclAllReduceKernel>()
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCPU);
 
-class EagerCclReduceScatterKernel final : public user_op::OpKernel {
+class EagerCclReduceScatterKernel final : public user_op::OpKernel,
+                                          public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerCclReduceScatterKernel() = default;
   ~EagerCclReduceScatterKernel() override = default;
@@ -226,7 +230,8 @@ REGISTER_USER_KERNEL("eager_nccl_reduce_scatter")
     .SetCreateFn<EagerCclReduceScatterKernel>()
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCPU);
 
-class EagerCclAllGatherKernel final : public user_op::OpKernel {
+class EagerCclAllGatherKernel final : public user_op::OpKernel,
+                                      public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerCclAllGatherKernel() = default;
   ~EagerCclAllGatherKernel() override = default;
@@ -257,7 +262,8 @@ REGISTER_USER_KERNEL("eager_nccl_all_gather")
     .SetIsMatchedHob(user_op::HobDeviceType() == DeviceType::kCPU);
 
 template<typename T>
-class EagerCclS2SKernel final : public user_op::OpKernel {
+class EagerCclS2SKernel final : public user_op::OpKernel,
+                                public user_op::OpKernelStateAndCacheProvider {
  public:
   EagerCclS2SKernel() = default;
   ~EagerCclS2SKernel() override = default;
